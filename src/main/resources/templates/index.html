@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ChronoFeed</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .item { border-bottom: 1px solid #eee; padding: 15px 0; }
+        .item:last-child { border-bottom: none; }
+        .item h2 { margin: 0 0 5px; font-size: 1.2em; }
+        .item p { margin: 0; color: #555; }
+        .item small { color: #888; display: block; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h1>統合フィード</h1>
+    <div class="item" th:each="item : ${items}">
+        <h2 th:text="${item.title}">タイトル</h2>
+        <p th:if="${item.summary}" th:text="${item.summary}">概要</p>
+        <small>
+            <span th:text="${#dates.format(item.publishedDate, 'yyyy年MM月dd日 HH:mm')}"></span>
+            - ソース: <span th:text="${item.sourceType}"></span>
+        </small>
+        <a th:href="${item.link}" target="_blank">続きを読む</a>
+    </div>
+</body>
+</html>
