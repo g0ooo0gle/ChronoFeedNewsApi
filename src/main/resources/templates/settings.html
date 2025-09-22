@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>設定 - 天気取得</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, "Helvetica Neue", Arial; margin: 24px; }
+    label { display:block; margin-top:8px; }
+    textarea { width:100%; height:120px; }
+    button { margin-top:8px; }
+  </style>
+</head>
+<body>
+  <h1>設定</h1>
+  <form method="post" action="/settings">
+    <label for="locations">監視対象の地点リスト（カンマ区切り）</label>
+    <textarea id="locations" name="locations" th:text="${locations}"></textarea>
+
+    <label for="updateIntervalMinutes">更新間隔（分）</label>
+    <input id="updateIntervalMinutes" name="updateIntervalMinutes" type="number" min="1" th:value="${updateIntervalMinutes}" />
+
+    <label for="language">言語</label>
+    <select id="language" name="language" th:value="${language}">
+      <option value="ja" th:selected="${language=='ja'}">日本語 (ja)</option>
+      <option value="en" th:selected="${language=='en'}">English (en)</option>
+    </select>
+
+    <br/>
+    <button type="submit">保存</button>
+    <button type="submit" name="force" value="1">保存して強制更新</button>
+  </form>
+
+  <p><a th:href="@{/weather}">天気ダッシュボードへ</a></p>
+</body>
+</html>
